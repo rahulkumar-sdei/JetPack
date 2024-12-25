@@ -11,16 +11,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +34,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -38,7 +43,20 @@ import com.org.jet.domain.model.MuseumObject
 import com.org.jet.screens.EmptyScreenContent
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import jetpack.shared.generated.resources.Res
+import jetpack.shared.generated.resources.app_name
+import jetpack.shared.generated.resources.label_artist
+import jetpack.shared.generated.resources.label_credits
+import jetpack.shared.generated.resources.label_date
+import jetpack.shared.generated.resources.label_department
+import jetpack.shared.generated.resources.label_dimensions
+import jetpack.shared.generated.resources.label_medium
+import jetpack.shared.generated.resources.label_repository
+import jetpack.shared.generated.resources.label_title
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 data class DetailScreen(val objectId: Int) : Screen {
     @Composable
@@ -70,10 +88,13 @@ private fun ObjectDetails(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(backgroundColor = Color.White) {
+            TopAppBar(backgroundColor = Color.Blue) {
                 IconButton(onClick = onBackClick) {
-//                    Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(Res.string.back))
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "", tint = Color.White)
                 }
+                Spacer(Modifier.weight(.8f))
+                Text("Details", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Spacer(Modifier.weight(1f))
             }
         },
         modifier = modifier,
@@ -91,18 +112,25 @@ private fun ObjectDetails(
                     .fillMaxWidth()
                     .background(Color.LightGray)
             )
+            val scope = rememberCoroutineScope()
+            scope.launch {
+                getString(Res.string.app_name)
+            }
             SelectionContainer {
                 Column(Modifier.padding(12.dp)) {
-                    Text(obj.title, style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold))
+                    Text(
+                        obj.title,
+                        style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold)
+                    )
                     Spacer(Modifier.height(6.dp))
-//                    LabeledInfo(stringResource(Res.string.label_title), obj.title)
-//                    LabeledInfo(stringResource(Res.string.label_artist), obj.artistDisplayName)
-//                    LabeledInfo(stringResource(Res.string.label_date), obj.objectDate)
-//                    LabeledInfo(stringResource(Res.string.label_dimensions), obj.dimensions)
-//                    LabeledInfo(stringResource(Res.string.label_medium), obj.medium)
-//                    LabeledInfo(stringResource(Res.string.label_department), obj.department)
-//                    LabeledInfo(stringResource(Res.string.label_repository), obj.repository)
-//                    LabeledInfo(stringResource(Res.string.label_credits), obj.creditLine)
+                    LabeledInfo(stringResource(Res.string.label_title), obj.title)
+                    LabeledInfo(stringResource(Res.string.label_artist), obj.artistDisplayName)
+                    LabeledInfo(stringResource(Res.string.label_date), obj.objectDate)
+                    LabeledInfo(stringResource(Res.string.label_dimensions), obj.dimensions)
+                    LabeledInfo(stringResource(Res.string.label_medium), obj.medium)
+                    LabeledInfo(stringResource(Res.string.label_department), obj.department)
+                    LabeledInfo(stringResource(Res.string.label_repository), obj.repository)
+                    LabeledInfo(stringResource(Res.string.label_credits), obj.creditLine)
                 }
             }
         }

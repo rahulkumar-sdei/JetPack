@@ -65,7 +65,10 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
+
     }
+
+
 }
 
 android {
@@ -86,3 +89,10 @@ android {
         debugImplementation(libs.compose.ui.tooling.preview)
     }
 }
+//compose.resources {
+//    publicResClass = false
+//    packageOfResClass = "com.org.jet.resources"
+//    generateResClass = auto
+//}
+
+

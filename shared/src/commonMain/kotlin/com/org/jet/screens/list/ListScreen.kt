@@ -45,6 +45,7 @@ import com.org.jet.screens.EmptyScreenContent
 import com.org.jet.screens.detail.DetailScreen
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 object ListScreen : Tab {
     override val options: TabOptions
@@ -97,14 +98,13 @@ private fun ObjectGrid(
     onObjectClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyRow() { }
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp)
     ) {
         items(objects, key = { it.objectID }) { obj ->
-            Box(modifier = Modifier.padding(8.dp)){
+            Box(modifier = Modifier.padding(8.dp)) {
                 ObjectFrame(
                     obj = obj,
                     onClick = { onObjectClick(obj.objectID) },
@@ -120,7 +120,12 @@ private fun ObjectFrame(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(Modifier, shape = RoundedCornerShape(10.dp), elevation = 4.dp, backgroundColor = Color.White) {
+    Card(
+        Modifier,
+        shape = RoundedCornerShape(10.dp),
+        elevation = 4.dp,
+        backgroundColor = Color.White
+    ) {
         Column(
             Modifier
                 .clickable { onClick() }
