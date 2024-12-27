@@ -1,4 +1,4 @@
-package com.org.seemekmm.android
+package com.org.jet
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

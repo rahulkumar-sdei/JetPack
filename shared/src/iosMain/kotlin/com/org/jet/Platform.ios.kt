@@ -7,6 +7,3 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
-actual fun getStatusBarController(): StatusBarController {
-    return  iOSStatusBarController()
-}

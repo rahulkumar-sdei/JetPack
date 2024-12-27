@@ -1,4 +1,4 @@
-package com.org.seemekmm.domain.usecase
+package com.org.jet.domain.usecase
 
 import com.org.jet.domain.model.MuseumObject
 import com.org.jet.domain.repository.MuseumRepository

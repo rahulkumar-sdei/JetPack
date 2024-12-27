@@ -8,4 +8,4 @@ interface StatusBarController {
 }
 expect fun getPlatform(): Platform
 
-expect fun getStatusBarController(): StatusBarController
+//expect fun getStatusBarController(): StatusBarController
